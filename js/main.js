@@ -1,4 +1,3 @@
-var t = 10;
 $(document).ready(function() {
     // receive messages
     // chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
@@ -12,13 +11,26 @@ $(document).ready(function() {
     //     chrome.runtime.sendMessage({type:"pause"},function(response) {});
     // }, true);
 
-    // chrome.storage.local.set({'didSubmit_t': "false"}, function (result) {
+    // $(window).unload(function(){
 
+	   //  //return false;
     // });
 
-    chrome.storage.sync.set({'rand_value': "coo"}, function() {
-      	console.log("ASDFs");
+	chrome.windows.getAll({populate:true},function(windows){
+		windows.forEach(function(window){
+	    	window.tabs.forEach(function(tab){
+				//collect all of the urls here, I will just log them instead
+	      		console.log(tab.url);
+	    	});
+	  	});
+	});
+
+    chrome.storage.sync.get("last_time", function (result) {
+    	console.log( result );
     });
 
-    console.log(t);
+    addEventListener("unload", function (event) {
+		var t = new Date().getTime();
+	    chrome.storage.sync.set({'last_time': t}, function() {});
+    }, true);
 });
