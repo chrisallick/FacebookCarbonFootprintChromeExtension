@@ -1,6 +1,10 @@
 # FacebookCarbonFootprintChromeExtension
 A "new tab" Chrome Extension to show you the energy required to view Facebook.
 
+Cloud computing is terrible for the environment.
+
+http://www.theguardian.com/environment/2010/apr/30/cloud-computing-carbon-emissions
+
 # Art Hack Day
 Made for Art Hack Day - 1/30/2015
 http://www.arthackday.net/events/deluge
