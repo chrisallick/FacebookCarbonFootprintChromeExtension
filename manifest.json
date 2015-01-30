@@ -6,15 +6,8 @@
     "incognito": "split",
     "chrome_url_overrides": {
         "newtab": "blank.html"
-    },
-    "content_scripts": [{
-        "matches": ["http://www.awesometapes.com/*"],
-        "js": ["jq.2.min.js", "main.js"]
-    }], "background": {
-        "scripts": ["background.js", "jq.2.min.js"],
-        "persistent": false
     }, "permissions": [
-        "tabs", "http://*/*", "https://*/*"
+        "tabs", "http://*/*", "https://*/*", "storage", "management"
     ], "browser_action": {
         "default_icon": "icon128.png"
     }, "icons": {
