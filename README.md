@@ -2,6 +2,7 @@
 A "new tab" Chrome Extension to show you the energy required to view Facebook.
 
 # Art Hack Day
+Made for Art Hack Day - 1/30/2015
 http://www.arthackday.net/events/deluge
 
 # Helpers
