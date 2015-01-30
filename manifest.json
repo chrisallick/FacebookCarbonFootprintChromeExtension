@@ -1,0 +1,22 @@
+{
+    "name": "Awesome Tapes from Africa Player",
+    "description": "Play through Awesome Tapes from Africa playlists.",
+    "version": "0.1.0",
+    "manifest_version": 2,
+    "content_scripts": [{
+        "matches": ["http://www.awesometapes.com/*"],
+        "js": ["jq.2.min.js", "main.js"]
+    }], "background": {
+        "scripts": ["background.js", "jq.2.min.js"],
+        "persistent": false
+    }, "permissions": [
+        "tabs", "http://*/*", "https://*/*"
+    ], "browser_action": {
+        "default_icon": "icon128.png"
+    }, "icons": {
+        "16": "icon16.png",
+        "48": "icon48.png",
+        "64": "icon64.png",
+        "128": "icon128.png"
+    }
+}
