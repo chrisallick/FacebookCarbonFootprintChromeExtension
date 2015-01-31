@@ -1,3 +1,20 @@
+function toHHMMSS( _time ) {
+    var sec_num = _time; // don't forget the second param
+    var hours   = Math.floor(sec_num / 3600);
+    var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+    var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+    if (hours   < 10) {hours   = "0"+hours;}
+    if (minutes < 10) {minutes = "0"+minutes;}
+    if (seconds < 10) {seconds = "0"+seconds;}
+    var time    = hours+'hr '+minutes+'min '+seconds+'sec';
+    
+    return time;
+}
+
+/**
+ * convert seconds to kg of co2 for each company
+ */
 function secToKg(seconds, company) {
 	var kgpsec;
 	if(company == "yt") {
@@ -14,9 +31,12 @@ function secToKg(seconds, company) {
 		kgpsec = 1 / 2419200;
 	}
 
-	return (seconds * kgpsec).toFixed(8);
+	return (seconds * kgpsec).toFixed(3);
 }
 
+/**
+ * redraw all the data points
+ */
 function refresh() {
 	clearTimeout( get_t );
 
@@ -25,8 +45,7 @@ function refresh() {
 
 	chrome.storage.sync.get("c_time", function (result) {
 		if( result.c_time ) {
-			var new_t = (result.c_time / 60).toFixed(2);
-			$("#c_time").text(new_t);
+			$("#c_time").text(toHHMMSS(result.c_time));
 
 			var kg = secToKg(result.c_time, "c");
 			$("#c_co2").text(kg);
@@ -34,7 +53,7 @@ function refresh() {
 			total += parseFloat(kg);
 			loaded++;
 			if( loaded == 4 ) {
-				$("#total_co2").text(total.toFixed(6));
+				$("#total_co2").text(total.toFixed(3));
 			}
 		} else {
 			$("#c_time").text(0);
@@ -44,8 +63,7 @@ function refresh() {
 
 	chrome.storage.sync.get("fb_time", function (result) {
 		if( result.fb_time ) {
-			var new_t = (result.fb_time / 60).toFixed(2);
-			$("#fb_time").text(new_t);
+			$("#fb_time").text(toHHMMSS(result.fb_time));
 
 			var kg = secToKg(result.fb_time, "fb");
 			$("#fb_co2").text(kg);
@@ -53,7 +71,7 @@ function refresh() {
 			total += parseFloat(kg);
 			loaded++;
 			if( loaded == 4 ) {
-				$("#total_co2").text(total.toFixed(6));
+				$("#total_co2").text(total.toFixed(3));
 			}
 		} else {
 			$("#fb_time").text(0);
@@ -63,8 +81,7 @@ function refresh() {
 
 	chrome.storage.sync.get("yt_time", function (result) {
 		if( result.yt_time ) {
-			var new_t = (result.yt_time / 60).toFixed(2);
-			$("#yt_time").text(new_t);	
+			$("#yt_time").text(toHHMMSS(result.yt_time));
 
 			var kg = secToKg(result.yt_time, "yt");
 			$("#yt_co2").text(kg);
@@ -72,7 +89,7 @@ function refresh() {
 			total += parseFloat(kg);
 			loaded++;
 			if( loaded == 4 ) {
-				$("#total_co2").text(total.toFixed(6));
+				$("#total_co2").text(total.toFixed(3));
 			}
 		} else {
 			$("#yt_time").text(0);
@@ -82,8 +99,7 @@ function refresh() {
 
 	chrome.storage.sync.get("n_time", function (result) {
 		if( result.n_time ) {
-			var new_t = (result.n_time / 60).toFixed(2);
-			$("#n_time").text(new_t);
+			$("#n_time").text(toHHMMSS(result.n_time));
 
 			var kg = secToKg(result.n_time, "n");
 			$("#n_co2").text(kg);
@@ -91,7 +107,7 @@ function refresh() {
 			total += parseFloat(kg);
 			loaded++;
 			if( loaded == 4 ) {
-				$("#total_co2").text(total.toFixed(6));
+				$("#total_co2").text(total.toFixed(3));
 			}
 		} else {
 			$("#n_time").text(0);
@@ -104,9 +120,10 @@ function refresh() {
 	}, 1000);
 }
 
+/**
+ * every 1 second call the refresh
+ */
 var get_t;
 $(document).ready(function() {
-	get_t = setTimeout(function(){
-		refresh();
-	}, 1000);
+	refresh();
 });

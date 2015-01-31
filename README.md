@@ -13,4 +13,6 @@ http://www.arthackday.net/events/deluge
 There are a couple Helper files. The first is "get.url.php" which allows you to make asyc calls and load JSON data into your Chrome Extension. The second is a ruby webserver which is just there to demonstrate the possibilty of having a webapp powering data on your Chrome Extension.
 
 # Contributers
-Paul Christophe, Chris Allick
+Paul Christophe		http://www.captaindaylight.com
+Dan Savage 			http://www.somethingsavage.com
+Chris Allick 		http://clubsexytime.com

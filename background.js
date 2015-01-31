@@ -1,8 +1,3 @@
-// chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-//     if (request.type == "songs") {
-//     }
-// });
-
 /**
  * parses a URL string into an object of parts
  */
@@ -30,6 +25,10 @@ function parseURL(url) {
     };
 }
 
+/**
+ * go through all open tabs looking for facebook, netflix, and youtube
+ * add time to those and also calculate the cost of using a laptop.
+ */
 function getTabs() {
     clearTimeout( t );
 
@@ -76,7 +75,7 @@ function getTabs() {
 
         chrome.storage.sync.get("c_time", function (result) {
             if( result && result.c_time ) {
-                result.c_time += 5;
+                result.c_time += 10;
                 chrome.storage.sync.set({'c_time': result.c_time}, function() {});
             } else {
                 chrome.storage.sync.set({'c_time': 10}, function() {});
@@ -89,6 +88,9 @@ function getTabs() {
     });
 }
 
+/**
+ * every ten seconds re-scrape for open tabs
+ */
 var t = setTimeout(function(){
     getTabs();
 }, 10000);

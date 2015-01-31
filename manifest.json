@@ -1,7 +1,7 @@
 {
-    "name": "Facebook Footprint",
-    "description": "Show the energy you've spent browsing Facebook.",
-    "version": "0.0.1",
+    "name": "Your Cloud Carbon Footprint",
+    "description": "Calculate and show the energy you've spent browsing Facebook, Netflix, and YouTube.",
+    "version": "0.1.0",
     "manifest_version": 2,
     "incognito": "split",
     "chrome_url_overrides": {
