@@ -1,4 +1,4 @@
-# Cloud Carbon Footprint Chrome Extension
+# Carbon Footprint Chrome Extension
 A "new tab" Chrome Extension to show you the energy required to view Facebook.
 
 Cloud computing is terrible for the environment.
