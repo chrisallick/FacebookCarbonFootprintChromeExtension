@@ -1,65 +1,94 @@
-function playNextSong() {
-    current_song++;
+// chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+//     if (request.type == "songs") {
+//     }
+// });
 
-    if( current_song <= songs.length ) {
-        getURLAndPlay(songs[current_song]);
+/**
+ * parses a URL string into an object of parts
+ */
+function parseURL(url) {
+    var parser = document.createElement('a'),
+        searchObject = {},
+        queries, split, i;
+    // Let the browser do the work
+    parser.href = url;
+    // Convert query string to object
+    queries = parser.search.replace(/^\?/, '').split('&');
+    for( i = 0; i < queries.length; i++ ) {
+        split = queries[i].split('=');
+        searchObject[split[0]] = split[1];
     }
-}
-
-var audio;
-function playSong(url) {
-    audio = new Audio;
-    
-    audio.onerror = function() {
-        var _msg = "error playing song";
-        chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
-            chrome.tabs.sendMessage(tabs[0].id, {type:"msg",msg:_msg}, function(response) {});  
-        });
+    return {
+        protocol: parser.protocol,
+        host: parser.host,
+        hostname: parser.hostname,
+        port: parser.port,
+        pathname: parser.pathname,
+        search: parser.search,
+        searchObject: searchObject,
+        hash: parser.hash
     };
-    
-    audio.addEventListener("canplaythrough", function() {
-        var _msg = "playing song " + (current_song+1);
-        chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
-            chrome.tabs.sendMessage(tabs[0].id, {type:"msg",msg:_msg}, function(response) {});  
-        });
-        audio.play();
-    }, false);
-    
-    audio.addEventListener("ended", function() {
-        var _msg = "song ended";
-        chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
-            chrome.tabs.sendMessage(tabs[0].id, {type:"msg",msg:_msg}, function(response) {});  
-        });
-        playNextSong();
-    });
-    audio.src = url;
-    audio.load();
 }
 
-var songs;
-var current_song = -1;
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    if (request.type == "songs") {
-        if( audio ) {
-            audio.pause();
-        }
-        
-        current_song = -1;
-        
-        songs = request.data;
-        sendResponse("received songs");
-        
-        playNextSong();
-    } else if( request.type == "pause" ) {
-        audio.pause();
-    }
-});
+function getTabs() {
+    clearTimeout( t );
 
-function getURLAndPlay(base) {
-    var url = "http://clubsexytime.com/projects/awesometapes/get.url.php?tape=" + base;
-    $.get(url,function(response){
-        chrome.extension.getBackgroundPage().console.log(response);
+    chrome.windows.getAll({populate:true},function(windows){
+        windows.forEach(function(window){
+            window.tabs.forEach(function(tab){
+                var obj = parseURL(tab.url);
+                if( obj && obj.host ) {
+                    if( obj.host == "www.facebook.com" || obj.host == "facebook.com" ) {
+                        chrome.storage.sync.get("fb_time", function (result) {
+                            if( result && result.fb_time ) {
+                                result.fb_time += 10;
+                                chrome.storage.sync.set({'fb_time': result.fb_time}, function() {});
+                            } else {
+                                chrome.storage.sync.set({'fb_time': 10}, function() {});
+                            }
+                        });
+                    }
 
-        playSong(response);
+                    if( obj.host == "www.youtube.com" || obj.host == "youtube.com" ) {
+                        chrome.storage.sync.get("yt_time", function (result) {
+                            if( result && result.yt_time ) {
+                                result.yt_time += 10;
+                                chrome.storage.sync.set({'yt_time': result.yt_time}, function() {});
+                            } else {
+                                chrome.storage.sync.set({'yt_time': 10}, function() {});
+                            }
+                        });
+                    }
+
+                    if( obj.host == "www.netflix.com" || obj.host == "netflix.com" ) {
+                        chrome.storage.sync.get("n_time", function (result) {
+                            if( result && result.n_time ) {
+                                result.n_time += 10;
+                                chrome.storage.sync.set({'n_time': result.n_time}, function() {});
+                            } else {
+                                chrome.storage.sync.set({'n_time': 10}, function() {});
+                            }
+                        });
+                    }
+                }
+            });
+        });
+
+        chrome.storage.sync.get("c_time", function (result) {
+            if( result && result.c_time ) {
+                result.c_time += 5;
+                chrome.storage.sync.set({'c_time': result.c_time}, function() {});
+            } else {
+                chrome.storage.sync.set({'c_time': 10}, function() {});
+            }
+        });
+
+        t = setTimeout(function(){
+            getTabs();
+        }, 10000);
     });
 }
+
+var t = setTimeout(function(){
+    getTabs();
+}, 10000);
