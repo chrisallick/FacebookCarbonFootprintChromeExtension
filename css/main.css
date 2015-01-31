@@ -1,20 +1,16 @@
-html, body { width: 100%; height: 100%; background-color: #FCFCD8; }
+html, body { width: 100%; height: 100%; background-color: #000000; overflow: hidden; }
 
-.bigRoboto { font: 400 50px 'Roboto'; }
+@font-face { font-family: "din"; src: url("../fonts/font.otf"); }
 
-#wrapper { width: 100%; color: #0E1425; padding-top: 50px; }
-#wrapper h1 { text-align: center; text-transform: uppercase; margin-bottom: 80px; letter-spacing: -1pt; }
-#wrapper h1 .smaller { font-size: 25px; text-transform: none; }
-#wrapper h1 .smaller sub { font-size: smaller; vertical-align: sub; }
+#wrapper { width: 100%; color: #0E1425; padding-top: 60px; }
+#wrapper h2 { font-size: 30px; text-align: center; text-transform: uppercase; margin-bottom: 20px; letter-spacing: -1pt; color: #797979; }
+#wrapper h1 { font: 300px normal "din"; text-align: center; margin-bottom: 60px; letter-spacing: -1pt; color: #FFFFFF; }
 
-#wrapper .companies { width: 860px; height: 200px; margin: 0 auto; }
-#wrapper .company { position: relative; float: left; width: 200px; height: 200px; border: 1px solid black; margin-right: 20px; box-sizing: border-box; background-color: #FEDF44; }
-#wrapper .company .name { position: absolute; bottom: -30px; left: 0px; width: 200px; }
-#wrapper .company .time { position: absolute; top: -30px; left: 0px; }
-#wrapper .company .name sub { font-size: smaller; vertical-align: sub; }
+#wrapper .companies { width: 968px; height: 200px; margin: 0 auto; }
+#wrapper .company { position: relative; float: left; width: 240px; height: 200px;  }
+#wrapper .company .name { position: absolute; top: 0px; left: 0px; width: 240px; color: #797979; text-align: center; text-transform: uppercase; }
+#wrapper .company .time { font: 50px normal "din"; position: absolute; top: 100px; left: 0px; width: 240px; color: #D30915; text-align: center; }
 #wrapper .last { margin-right: 0px; }
 
-.laptop { background: url("../img/laptop.png") top left no-repeat; }
-.fb { background: url("../img/facebook.png") top left no-repeat; }
-.yt { background: url("../img/youtube.png") top left no-repeat; }
-.netflix { background: url("../img/netflix.png") top left no-repeat; }
+#info { display: block; width: 50px; height: 50px; position: absolute; top: 20px; left: 20px; }
+#info img { display: block; width: 100%; height: 100%; }
