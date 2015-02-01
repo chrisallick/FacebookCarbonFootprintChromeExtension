@@ -5,6 +5,11 @@ Cloud computing is terrible for the environment.
 
 http://www.theguardian.com/environment/2010/apr/30/cloud-computing-carbon-emissions
 
+For this experiences we're talking in killograms of co2 which is a meassurment used to describe green house gas emmissions.
+
+3.785 kg = 1 gallon of gas
+1gk = 0.2642 gallons
+
 # Art Hack Day
 Made for Art Hack Day - 1/30/2015
 http://www.arthackday.net/events/deluge

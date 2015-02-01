@@ -54,6 +54,8 @@ function refresh() {
 			loaded++;
 			if( loaded == 4 ) {
 				$("#total_co2").text(total.toFixed(5));
+				var g = (total * 0.2642).toFixed(4);
+				$("#gas").text(g);
 			}
 		} else {
 			//$("#c_time").text(0);
@@ -72,6 +74,8 @@ function refresh() {
 			loaded++;
 			if( loaded == 4 ) {
 				$("#total_co2").text(total.toFixed(5));
+				var g = (total * 0.2642).toFixed(4);
+				$("#gas").text(g);
 			}
 		} else {
 			//$("#fb_time").text(0);
@@ -90,6 +94,8 @@ function refresh() {
 			loaded++;
 			if( loaded == 4 ) {
 				$("#total_co2").text(total.toFixed(5));
+				var g = (total * 0.2642).toFixed(4);
+				$("#gas").text(g);
 			}
 		} else {
 			//$("#yt_time").text(0);
@@ -108,6 +114,8 @@ function refresh() {
 			loaded++;
 			if( loaded == 4 ) {
 				$("#total_co2").text(total.toFixed(5));
+				var g = (total * 0.2642).toFixed(4);
+				$("#gas").text(g);
 			}
 		} else {
 			//$("#n_time").text(0);
